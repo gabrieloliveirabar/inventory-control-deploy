@@ -15,8 +15,9 @@ from datetime import timedelta
 
 
 import os
-import dotenv
 import dj_database_url
+import dotenv
+
 
 dotenv.load_dotenv()
 
@@ -34,7 +35,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG",False)
 # "web-production-8c6f.up.railway.app", "0.0.0.0"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://inventory-control-8sgc.onrender.com","0.0.0.0"]
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
