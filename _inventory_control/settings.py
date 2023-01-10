@@ -32,9 +32,12 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG",False)
+#
 
-ALLOWED_HOSTS = ["web-production-8c6f.up.railway.app", "0.0.0.0"]
-
+ALLOWED_HOSTS = [ "web-production-8c6f.up.railway.app", "0.0.0.0"]
+# RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+# if RENDER_EXTERNAL_HOSTNAME:
+#     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -111,9 +114,11 @@ DATABASES = {
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
-    db_deploy = dj_database_url.config(default=DATABASE_URL)
-    DATABASES["default"].update(db_deploy)
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
     DEBUG = False
+
 
 
 
