@@ -76,10 +76,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOWED_ORIGINS = [
-	'http://localhost:3000'
-]
-CORS_ALLOW_ALL_ORIGINS=True
 
 
 ROOT_URLCONF = "_inventory_control.urls"
@@ -188,6 +184,12 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
+CORS_ALLOWED_ORIGINS = [
+	'http://localhost:3000'
+]
+CORS_ALLOW_ALL_ORIGINS=True
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "Your Project API",
     "DESCRIPTION": "Your project description",
