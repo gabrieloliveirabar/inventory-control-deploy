@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG",False)
 
 ALLOWED_HOSTS = ["web-production-8c6f.up.railway.app", "0.0.0.0"]
 
@@ -100,7 +100,7 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DB_NAME"),
         "USER": os.getenv("POSTGRES_USERNAME"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": "127.0.0.1",
+        "HOST": "db_inventory_control",
         "PORT": "5432",
     },
     "db_sqlite3": {
@@ -115,9 +115,7 @@ if DATABASE_URL:
     DATABASES["default"].update(db_deploy)
     DEBUG = False
 
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
