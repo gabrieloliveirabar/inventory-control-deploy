@@ -25,6 +25,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "is_sent",
             "account_id",
             "total_price",
+            "name_dispatcher",
             "product",
         ]
         read_only_fields = [
