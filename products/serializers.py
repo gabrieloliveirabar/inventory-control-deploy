@@ -25,7 +25,6 @@ class ProductSerializer(serializers.ModelSerializer):
         
         return Product.objects.create(**validated_data)
 
-
     def update(self, instance: Product, validated_data: dict) -> Product:
         for key, value in validated_data.items():
             setattr(instance, key, value)
