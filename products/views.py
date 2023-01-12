@@ -17,7 +17,7 @@ class ProductView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer:ProductSerializer) -> None:
 
-        serializer.save(account_id=self.request.user.id)
+        serializer.save(account_id=self.request.user)
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
