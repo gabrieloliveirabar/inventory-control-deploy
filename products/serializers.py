@@ -14,12 +14,13 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "amount",
-            "category",
+            "category", 
             "account_id",
         ] 
         
         read_only_fields = ["id", "account_id"]
         depth = 1
+        
     
     def create(self, validated_data:dict)-> Product:
         
@@ -32,3 +33,22 @@ class ProductSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class ProductPostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model  = Product
+        
+        fields = [
+            "id",
+            "name",
+            "description",
+            "price",
+            "amount",
+            "category", 
+            "account_id",
+        ] 
+        
+        read_only_fields = ["id", "account_id"]
+        
