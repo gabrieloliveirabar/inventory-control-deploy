@@ -15,9 +15,8 @@ from datetime import timedelta
 
 
 import os
-import dj_database_url
 import dotenv
-
+import dj_database_url
 
 dotenv.load_dotenv()
 
@@ -32,13 +31,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG",False)
-# "web-production-8c6f.up.railway.app", "0.0.0.0"
+DEBUG = True
 
-ALLOWED_HOSTS = ["https://inventory-control-8sgc.onrender.com","0.0.0.0"]
-RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -54,7 +50,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_spectacular",
-    "corsheaders",
 ]
 MY_APPS = [
     "accounts",
@@ -67,7 +62,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -75,8 +69,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-
 
 ROOT_URLCONF = "_inventory_control.urls"
 
@@ -119,14 +111,13 @@ DATABASES = {
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
-    db_from_env = dj_database_url.config(
-        default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
+    db_deploy = dj_database_url.config(default=DATABASE_URL)
+    DATABASES["default"].update(db_deploy)
     DEBUG = False
+
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -167,10 +158,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -184,12 +173,6 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
-
-CORS_ALLOWED_ORIGINS = [
-	'http://localhost:3000'
-]
-CORS_ALLOW_ALL_ORIGINS=True
-
 SPECTACULAR_SETTINGS = {
     "TITLE": "Your Project API",
     "DESCRIPTION": "Your project description",
