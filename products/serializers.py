@@ -26,9 +26,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
    
     def update(self, instance: Product, validated_data: dict) -> Product:
-           for key, value in validated_data.items():
-               setattr(instance, key, value)
-    
-           instance.save()
-    
-           return instance        
+        
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.save()
+
+        return instance        
