@@ -33,7 +33,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://inventory-control-8sgc.onrender.com/", "0.0.0.0"]
+ALLOWED_HOSTS = [
+    "https://inventory-control-8sgc.onrender.com/",
+    "http://localhost:8000", "0.0.0.0",
+]
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -48,6 +51,9 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_ALL_ORIGINS = True
 
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -143,7 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=15),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7)
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -183,7 +189,4 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-CORS_ALLOWED_ORIGINS = [
-	'http://localhost:3000'
-]
-CORS_ALLOW_ALL_ORIGINS=True
+

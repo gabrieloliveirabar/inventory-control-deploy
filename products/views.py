@@ -5,8 +5,6 @@ from categories.models import Category
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from accounts.permissions import IsMethodGet, IsManager
-from django.shortcuts import get_object_or_404
-import ipdb
 
 class ProductView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
@@ -17,12 +15,14 @@ class ProductView(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == "POST":
+            
             return ProductPostSerializer
         return ProductSerializer
 
     def perform_create(self, serializer:ProductSerializer) -> None:
-
-        serializer.save(account_id=self.request.user)
+        category = self.request.data["category"]
+        
+        serializer.save(account_id=self.request.user, category=category)
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
